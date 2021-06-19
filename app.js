@@ -24,12 +24,16 @@ app.post('/story', (req, res) => {
   if (newText.trim().length === 0) {
     return res.status(422).json({ message: 'Text must not be empty!' });
   }
-  fs.appendFile(filePath, newText + '\n', (err) => {
+  fs.appendFile(filePath, newText + '\n', err => {
     if (err) {
       return res.status(500).json({ message: 'Storing the text failed.' });
     }
     res.status(201).json({ message: 'Text was stored!' });
   });
+});
+
+app.get('/error', () => {
+  process.exit(1);
 });
 
 app.listen(3000);
